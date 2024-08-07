@@ -12,13 +12,17 @@ import {
   DialogHeader,
 } from "@/components/ui/dialog";
 import { FcGoogle } from "react-icons/fc";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
+import { doc, setDoc } from 'firebase/firestore';
+import { db } from '@/service/FirebaseConfig';
 
 export default function CreateTrip() {
   const [place, setPlace] = useState();
   const [formData, setFormData] = useState({});
   const [openDialog, setOpenDialog] = useState(false);
+  const [loading, setLoading] = useState(false);
   const handleInputChange = (name, value) => {
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
@@ -44,14 +48,15 @@ export default function CreateTrip() {
     }
 
     if (formData?.noOfDays > 7) {
-        toast("Number of days cannot be more than 7!")
-        return;
-      }
-      if (!formData?.noOfDays || !formData?.location || !formData?.budget || !formData.traveller) {
-        toast("Please fill all details!")
-        return;
-      }
+      toast("Number of days cannot be more than 7!")
+      return;
+    }
+    if (!formData?.noOfDays || !formData?.location || !formData?.budget || !formData.traveller) {
+      toast("Please fill all details!")
+      return;
+    }
 
+    setLoading(true);
     const FINAL_PROMPT = AI_PROMPT
       .replace('{location}', formData?.location.label)
       .replace('{totalDays}', formData?.noOfDays)
@@ -63,6 +68,26 @@ export default function CreateTrip() {
 
     const result = await chatSession.sendMessage(FINAL_PROMPT);
     console.log(result?.response?.text());
+    setLoading(false);
+    SaveAiTrip(result?.response?.text());
+  };
+
+  const SaveAiTrip = async (TripData) => {
+    try {
+      setLoading(true);
+      const user = JSON.parse(localStorage.getItem('user'));
+      const docId = Date.now().toString();
+      await setDoc(doc(db, "AiTrips", docId), {
+        userSelection: formData,
+        tripData: JSON.parse(TripData),
+        userEmail: user?.email,
+        id: docId,
+      });
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+      alert("An error occurred while saving the trip. Please try again later.");
+    }
   };
 
   const GetUserProfile = (tokenInfo) => {
@@ -148,7 +173,12 @@ export default function CreateTrip() {
       </div>
 
       <div className='my-10 justify-end flex'>
-        <Button onClick={OnGenerateTrip}>Generate Trip</Button>
+        <Button disable={loading}
+          onClick={OnGenerateTrip}>
+          {loading ?
+            <AiOutlineLoading3Quarters className='h-7 w-7 animate-spin' /> : 'Generate Trip'
+          }
+        </Button>
       </div>
 
       <Dialog open={openDialog}>
@@ -161,8 +191,8 @@ export default function CreateTrip() {
                 To generate a customized itinerary, you need to sign in with your Google account.
               </p>
               <Button onClick={login}
-              className="w-full mt-5 flex gap-4 items-center">
-              <FcGoogle className='h-7 w-7' /> Sign In with Google
+                className="w-full mt-5 flex gap-4 items-center">
+                <FcGoogle className='h-7 w-7' /> Sign In with Google
               </Button>
             </DialogDescription>
           </DialogHeader>
