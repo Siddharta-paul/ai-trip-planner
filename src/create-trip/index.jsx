@@ -17,12 +17,15 @@ import { useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 import { doc, setDoc } from 'firebase/firestore';
 import { db } from '@/service/FirebaseConfig';
+import { useNavigate } from 'react-router-dom';
 
 export default function CreateTrip() {
   const [place, setPlace] = useState();
   const [formData, setFormData] = useState({});
   const [openDialog, setOpenDialog] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
   const handleInputChange = (name, value) => {
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
@@ -84,6 +87,7 @@ export default function CreateTrip() {
         id: docId,
       });
       setLoading(false);
+      navigate(`/view-trip/${docId}`);
     } catch (error) {
       console.error(error);
       alert("An error occurred while saving the trip. Please try again later.");
