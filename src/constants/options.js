@@ -1,58 +1,59 @@
-export const SelectTravelList=[
+export const SelectTravelList = [
     {
         id: 1,
-        title:'Just Me',
-        desc:'A solo traveller in exploration',
-        icon:'🏄‍♂️',
-        people:'1'
+        title: 'Just Me',
+        desc: 'Explore the world solo with freedom and flexibility 🌍✨',
+        icon: '🏄‍♂️',
+        people: '1'
     },
     {
         id: 2,
-        title:'Family',
-        desc:'A family vacation with friends',
-        icon:'👪',
-        people:'2-4'
+        title: 'Family',
+        desc: 'Enjoy a memorable family vacation with loved ones 👨‍👩‍👧‍👦🏖️',
+        icon: '👪',
+        people: '2-4'
     },
     {
         id: 3,
-        title:'Friends',
-        desc:'A group vacation with friends',
-        icon:'👬👭',
-        people:'5-8'
+        title: 'Friends',
+        desc: 'Create fun memories with a group of friends 🕺💃',
+        icon: '🎉👯‍♂️',
+        people: '5-8'
     },
     {
         id: 4,
-        title:'Couple',
-        desc:'A group vacation with your love',
-        icon:'👫',
-        people:'2'
+        title: 'Couple',
+        desc: 'Romantic getaways with your special someone ❤️🌹',
+        icon: '👫',
+        people: '2'
     }
-
 ]
 
-export const SelectBudgetOptions=[
+
+export const SelectBudgetOptions = [
     {
         id: 1,
-        title:'Budget Friendly',
-        desc:'Affordable options for a budget-conscious traveler',
-        icon:'💵',
-        budget:'$500-$1000'
+        title: 'Budget Friendly',
+        desc: 'Great deals for the budget-savvy traveler 💵🎒',
+        icon: '💵',
+        budget: '$500-$1000'
     },
     {
         id: 2,
-        title:'Moderate',
-        desc:'Average prices for a moderately budget-conscious traveler',
-        icon:'💰',
-        budget:'$1000-$2000'
+        title: 'Moderate',
+        desc: 'Comfortable options for a balanced budget 🏨🛍️',
+        icon: '💰',
+        budget: '$1000-$2000'
     },
     {
         id: 3,
-        title:'Luxury',
-        desc:'Higher prices for an expensive traveler',
-        icon:'💸',
-        budget:'$2000+'
+        title: 'Luxury',
+        desc: 'Pamper yourself with top-notch experiences 💎🌟',
+        icon: '💸',
+        budget: '$2000+'
     }
 ]
+
 
 export const AI_PROMPT = `
 Generate a travel plan with the following details:

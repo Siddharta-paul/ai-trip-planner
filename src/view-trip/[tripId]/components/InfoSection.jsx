@@ -1,29 +1,43 @@
-import { Button } from '@/components/ui/button'
-import { FaShareAlt } from "react-icons/fa";
-
-import React from 'react'
+import { Button } from '@/components/ui/button';
+import { FaShareAlt } from 'react-icons/fa';
+import React from 'react';
 
 function InfoSection({ trip }) {
-    return (
-        <div>
-            <img src='/placeholder.png' className='h-[340px] w-full object-cover rounded-xl' />
-            <div className='flex justify-between items-center'>
-            <div className='my-5 flex flex-col gap-2'>
-                    <h2 className='font-bold text-2xl'>
-                        {trip?.userSelection?.location?.label}
-                        <div className='flex gap-5 p-5'>
-                            <h2 className='text-gray-500 p-1 px-3 bg-gray-200 rounded-full text-xs md:text-md '>📅 {trip?.userSelection?.noOfDays} Days</h2>
-                            <h2 className='text-gray-500 p-1 px-3 bg-gray-200 rounded-full text-xs md:text-md '>💰 {trip?.userSelection?.budget} Budget</h2>
-                            <h2 className='text-gray-500 p-1 px-3 bg-gray-200 rounded-full text-xs md:text-md '>🥂 No of Travellers: {trip?.userSelection?.traveller}</h2>
-                            
-                        </div>
-                    </h2>
-                </div>
-                <Button><FaShareAlt /></Button>
-            </div>
+    // Function to safely get data from the trip object
+    const getData = (path, defaultValue = 'Not Available') => {
+        return path.split('.').reduce((acc, part) => acc && acc[part], trip) || defaultValue;
+    };
 
+    return (
+        <div className='p-5 md:p-10'>
+            <img 
+                src='/placeholder.png' 
+                alt='Trip Image' 
+                className='h-[340px] w-full object-cover rounded-xl mb-5'
+            />
+            <div className='flex flex-col md:flex-row justify-between items-start md:items-center'>
+                <div className='flex flex-col gap-3 mb-5 md:mb-0'>
+                    <h2 className='font-bold text-xl md:text-2xl'>
+                        {getData('userSelection.location.label')}
+                    </h2>
+                    <div className='flex flex-wrap gap-3'>
+                        <span className='text-gray-500 p-2 px-4 bg-gray-200 rounded-full text-xs md:text-sm'>
+                            📅 {getData('userSelection.noOfDays', 'N/A')} Days
+                        </span>
+                        <span className='text-gray-500 p-2 px-4 bg-gray-200 rounded-full text-xs md:text-sm'>
+                            💰 {getData('userSelection.budget', 'N/A')} Budget
+                        </span>
+                        <span className='text-gray-500 p-2 px-4 bg-gray-200 rounded-full text-xs md:text-sm'>
+                            🥂 No of Travellers: {getData('userSelection.traveller', 'N/A')}
+                        </span>
+                    </div>
+                </div>
+                <Button className='flex items-center'>
+                    <FaShareAlt className='mr-2' /> Share
+                </Button>
+            </div>
         </div>
-    )
+    );
 }
 
-export default InfoSection
+export default InfoSection;
