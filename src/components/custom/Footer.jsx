@@ -3,7 +3,7 @@ import { FaHeart } from 'react-icons/fa';
 
 function Footer() {
     return (
-        <footer className="my-7 py-4 bg-gray-800 text-white">
+        <footer className="mt-7 py-4 bg-gray-800 text-white">
             <div className="container mx-auto text-center">
                 <h2 className="text-lg md:text-xl font-semibold">
                     Created with <FaHeart className="inline text-red-500 mx-1" /> by Siddharta Paul
