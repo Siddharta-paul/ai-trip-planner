@@ -66,6 +66,11 @@ function Header() {
           <div className='flex items-center gap-4'>
             <span className='text-orange-600 font-semibold text-lg'>Welcome, </span>
             <span className='font-semibold text-lg'>{user.name}</span>
+            <a href='/create-trip'>
+              <Button variant='outline' className='rounded-full border-orange-600 text-orange-600 hover:bg-orange-600 hover:text-white transition-colors'>
+                + Create Trip
+              </Button>
+            </a>
             <a href='/my-trips'>
               <Button variant='outline' className='rounded-full border-orange-600 text-orange-600 hover:bg-orange-600 hover:text-white transition-colors'>
                 My Trips
