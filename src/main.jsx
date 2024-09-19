@@ -1,15 +1,15 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import CreateTrip from './create-trip/index.jsx'
-import Header from './components/custom/Header.jsx'
-import ViewTrip from './view-trip/[tripId]/index.jsx'
-import { Toaster } from './components/ui/sonner.jsx'
-import { GoogleOAuthProvider } from '@react-oauth/google'
-import Footer from './components/custom/Footer.jsx'
-import MyTrips from './my-trips/index.jsx'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App.jsx';
+import './index.css';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import CreateTrip from './create-trip/index.jsx';
+import Header from './components/custom/Header.jsx';
+import ViewTrip from './view-trip/[tripId]/index.jsx';
+import { Toaster } from './components/ui/sonner.jsx';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import Footer from './components/custom/Footer.jsx';
+import MyTrips from './my-trips/index.jsx';
 
 const router = createBrowserRouter([
   {
@@ -18,25 +18,30 @@ const router = createBrowserRouter([
   },
   {
     path: '/create-trip',
-    element: <CreateTrip/>,
+    element: <CreateTrip />,
   },
   {
     path: '/view-trip/:tripId',
-    element: <ViewTrip/>,
+    element: <ViewTrip />,
   },
   {
     path: '/my-trips',
-    element: <MyTrips/>,
+    element: <MyTrips />,
   }
   // Add more routes here
-])
+]);
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_AUTH_CLIENT_ID}>
-    <Header/>
-    <Toaster />
-    <RouterProvider router ={router} />
+      <div className="flex flex-col min-h-screen">
+        <Header />
+        <main className="flex-1">
+          <RouterProvider router={router} />
+        </main>
+        <Footer />
+      </div>
+      <Toaster />
     </GoogleOAuthProvider>
-    <Footer />
   </React.StrictMode>,
-)
+);
