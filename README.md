@@ -4,6 +4,8 @@
 
 This project is a modern travel itenary planning application built using React and Vite. It leverages a range of advanced APIs and technologies to provide a comprehensive and interactive experience for users looking to plan their trips. The app integrates with various Google services and Firebase to offer personalized trip itineraries, user authentication, and more.
 
+visit - https://ai-travel-planner-liart.vercel.app/
+
 ## Features
 
 ### 1. **User Authentication**
